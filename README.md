@@ -1,8 +1,11 @@
-# Web2Md Chrome Extension
+# 
 
-![](icon.png)
+<div style="display: flex; align-items: center; gap: 20px;">
+    <img src="icon.png" width="64" />
+    <H1>Web2Md Chrome Extension</H1>
+</div>
 
-Get markdown from any webpage with a single keyboard shortcut.
+ Get markdown from any webpage with a single keyboard shortcut.
 
 ## Installation
 

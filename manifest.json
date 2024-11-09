@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "URL to Markdown",
+  "version": "1.0",
+  "description": "Get's contents of current URL as markdown and copies it to clipboard",
+  "permissions": [
+    "activeTab",
+    "clipboardWrite",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://web2md.answer.ai/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "run_at": "document_end",
+      "js": ["content.js"]
+    }
+  ],
+  "commands": {
+    "post-url": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+O",
+        "mac": "Command+Shift+O"
+      },
+      "description": "Post current URL and copy response"
+    }
+  }
+}

@@ -1,11 +1,6 @@
-# 
+<H1>Web2Md Chrome Extension <img src="icon.png" width="48" /></H1>
 
-<div style="display: flex; align-items: center; gap: 20px;">
-    <img src="icon.png" width="64" />
-    <H1>Web2Md Chrome Extension</H1>
-</div>
-
- Get markdown from any webpage with a single keyboard shortcut.
+Get markdown from any webpage with a single keyboard shortcut.[^1]
 
 ## Installation
 
@@ -26,3 +21,5 @@ You will get a notification in the upper right corner of the screen that looks l
 To change the keyboard shortcut, open Chrome's extensions page, click on the "Manage" button for this extension, click on "Keyboard shortcuts", and change the shortcut from "Ctrl+Shift+O" to whatever you'd like.
 
 You can also modify the `manifest.json` file to change the shortcut.  Look for the `commands` section.
+
+[^1]: Uses [web2md.answer.ai](https://web2md.answer.ai) to convert the contents of the current page to markdown.

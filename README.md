@@ -14,7 +14,7 @@ Follow [these steps](https://developer.chrome.com/docs/extensions/get-started/tu
 
 You will get a notification in the upper right corner of the screen that looks like this:
 
-![](banner.png)
+![](notification.png)
 
 ## Changing The Keyboard Shortcut
 

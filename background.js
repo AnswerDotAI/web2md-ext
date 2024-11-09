@@ -48,7 +48,7 @@ chrome.commands.onCommand.addListener(async (command) => {
   
         // Send success message
         chrome.tabs.sendMessage(tab.id, {
-          text: 'Successfully copied response to clipboard',
+          text: 'Successfully copied contents to clipboard',
           isError: false
         });
   

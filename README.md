@@ -1,3 +1,9 @@
+# Web2Md Chrome Extension
+
+![](icon.png)
+
+Get markdown from any webpage with a single keyboard shortcut.
+
 ## Installation
 
 Follow [these steps](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked) to load an unpacked extension.  Select the root of this repository as the extension directory.

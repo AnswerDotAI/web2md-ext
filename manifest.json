@@ -3,6 +3,12 @@
   "name": "URL to Markdown",
   "version": "1.0",
   "description": "Get's contents of current URL as markdown and copies it to clipboard",
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
   "permissions": [
     "activeTab",
     "clipboardWrite",

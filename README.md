@@ -22,4 +22,10 @@ To change the keyboard shortcut, open Chrome's extensions page, click on the "Ma
 
 You can also modify the `manifest.json` file to change the shortcut.  Look for the `commands` section.
 
+## Demo
+
+This is a demo of the extension in action:
+
+
+
 [^1]: Uses [web2md.answer.ai](https://web2md.answer.ai) to convert the contents of the current page to markdown.

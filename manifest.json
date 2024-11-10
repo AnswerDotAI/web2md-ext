@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Web page to Markdown",
+  "name": "URL to Markdown",
   "version": "1.0",
   "description": "Get's contents of current URL as markdown and copies it to clipboard",
   "icons": {

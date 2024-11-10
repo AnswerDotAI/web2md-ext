@@ -14,7 +14,7 @@ Follow [these steps](https://developer.chrome.com/docs/extensions/get-started/tu
 
 You will get a notification in the upper right corner of the screen that looks like this:
 
-> ![](notification.png)
+> <img src="notification.png" width="396" />
 
 ## Changing The Keyboard Shortcut
 

@@ -26,7 +26,6 @@ You can also modify the `manifest.json` file to change the shortcut.  Look for t
 
 This is a demo of the extension in action:
 
-https://github.com/user-attachments/assets/e04c9fe5-b778-488e-9dbf-b42c780c6946
-
+https://github.com/user-attachments/assets/ddf1e48b-30e0-4d6b-a77a-8354d1ddf9c9
 
 [^1]: Uses [web2md.answer.ai](https://web2md.answer.ai) to convert the contents of the current page to markdown.

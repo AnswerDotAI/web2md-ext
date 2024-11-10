@@ -1,6 +1,6 @@
 <H1>Web2Md Chrome Extension <img src="icon.png" width="24" /></H1>
 
-Get markdown version of any webpage with a single keyboard shortcut.[^1]
+Get a markdown version of any webpage with a keyboard shortcut.[^1]
 
 ## Installation
 

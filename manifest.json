@@ -14,7 +14,7 @@
     "clipboardWrite",
     "scripting"
   ],
-  "host_permissions": [
+  "optional_host_permissions": [
     "https://web2md.answer.ai/*"
   ],
   "background": {

@@ -14,8 +14,8 @@
     "clipboardWrite",
     "scripting"
   ],
-  "optional_host_permissions": [
-    "https://web2md.answer.ai/*"
+  "host_permissions": [
+    "https://r.jina.ai/*"
   ],
   "background": {
     "service_worker": "background.js"

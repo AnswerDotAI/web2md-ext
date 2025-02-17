@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "URL to Markdown",
-  "version": "1.0",
+  "version": "1.2",
   "description": "Get's contents of current URL as markdown and copies it to clipboard",
   "icons": {
     "16": "icon.png",
@@ -14,8 +14,8 @@
     "clipboardWrite",
     "scripting"
   ],
-  "optional_host_permissions": [
-    "https://web2md.answer.ai/*"
+  "host_permissions": [
+    "https://r.jina.ai/*"
   ],
   "background": {
     "service_worker": "background.js"

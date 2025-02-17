@@ -33,103 +33,82 @@ async function handlePermissionRequest() {
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === "post-url") {
     try {
-      /* Get the active tab */
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       if (!tab) {
         throw new Error('No active tab found');
       }
 
-      /* Check if we already have permission */
-      const origin = 'https://web2md.answer.ai/';
+      // Check for permission
       const hasPermission = await chrome.permissions.contains({
-        origins: [origin]
+        origins: ['https://r.jina.ai/*']
       });
 
       if (!hasPermission) {
-        /* Request permission via content script */
-        chrome.tabs.sendMessage(tab.id, { type: 'REQUEST_PERMISSION' });
-        
-        /* Store the rest of the operation as a pending request */
-        pendingRequest = async () => {
-          await processPage(tab);
-        };
-        return;
+        const granted = await chrome.permissions.request({
+          origins: ['https://r.jina.ai/*']
+        });
+        if (!granted) {
+          throw new Error('Permission to access r.jina.ai is required');
+        }
       }
 
-      await processPage(tab);
+      const url = tab.url;
+      const jinaReaderUrl = `https://r.jina.ai/${url}`;
+
+      const response = await fetch(jinaReaderUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const markdown = await response.text();
+
+      // Copy to clipboard
+      await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: (text) => {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          return true;
+        },
+        args: [markdown]
+      });
+
+      showNotification(tab.id, 'Markdown copied to clipboard!', true);
 
     } catch (error) {
-      console.error('Error in URL Poster extension:', error.message);
-      try {
-        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        if (tab?.id) {
-          chrome.tabs.sendMessage(tab.id, {
-            text: `Error: ${error.message}`,
-            isError: true
-          });
-        }
-      } catch (e) {
-        console.error('Failed to send error message:', e);
+      console.error('Error:', error);
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      if (tab?.id) {
+        showNotification(tab.id, `Error: ${error.message}`, false);
       }
     }
   }
 });
 
-async function processPage(tab) {
-  /* Get the page HTML content */
-  const [{result: pageContent}] = await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: () => document.documentElement.outerHTML
-  });
-
-  /* Make the API request */
-  const response = await fetch('https://web2md.answer.ai/api', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'text/plain'
+function showNotification(tabId, message, isSuccess) {
+  chrome.scripting.executeScript({
+    target: { tabId },
+    func: (msg, success) => {
+      const notification = document.createElement('div');
+      notification.textContent = msg;
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 16px;
+        background: ${success ? '#4CAF50' : '#f44336'};
+        color: white;
+        border-radius: 4px;
+        z-index: 10000;
+        font-family: Arial, sans-serif;
+      `;
+      document.body.appendChild(notification);
+      setTimeout(() => notification.remove(), 3000);
     },
-    body: `cts=${encodeURIComponent(pageContent)}`
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  const responseText = await response.text();
-  if (!responseText) {
-    throw new Error('Empty response received from server');
-  }
-
-  /* Copy to clipboard */
-  const results = await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: copyToClipboard,
-    args: [responseText]
-  });
-
-  if (!results || results.length === 0) {
-    throw new Error('Failed to execute clipboard script');
-  }
-
-  /* Show success message */
-  chrome.tabs.sendMessage(tab.id, {
-    text: 'Successfully copied contents to clipboard',
-    isError: false
-  });
-}
-
-/* Function to copy text to clipboard */
-function copyToClipboard(text) {
-  return new Promise((resolve, reject) => {
-    navigator.clipboard.writeText(text)
-      .then(() => {
-        console.log('Text successfully copied to clipboard');
-        resolve(true);
-      })
-      .catch(err => {
-        console.error('Failed to copy text to clipboard:', err);
-        reject(err);
-      });
+    args: [message, isSuccess]
   });
 }
